@@ -1,0 +1,23 @@
+extract:
+  - step: Download the data via HTTP
+    action: extract.source.http.DownloadFiles
+    fetch:
+      - "https://raw.githubusercontent.com/enigmadocs/branching-filename/master/2015-16.zip"
+
+  - step: Unzip the compressed data
+    action: extract.source.compression.UncompressFile
+
+  - step:
+    action: debug.LogMetadata
+
+  - step:
+    action: parsekit.ApplyCodec
+    codec: csv_2015
+    when:
+      - ('2015' in metadata['name'])
+
+  - step:
+    action: parsekit.ApplyCodec
+    codec: csv_2016
+    when:
+      - ('2016' in metadata['name'])

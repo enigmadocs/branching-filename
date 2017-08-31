@@ -1,0 +1,16 @@
+###
+# Parsefile for branching-filename
+# 2017-08-29
+###
+
+name: dataflow-demo
+description: "Download a zip file, unzip, and branch to codec based on the filename"
+maintainers:
+  - Peter Henderson <name@domain.com>
+version: "1.0.0"
+license: none
+source_urls:
+  - "http://example.org/example.csv"
+
+extract:
+  - data.yaml

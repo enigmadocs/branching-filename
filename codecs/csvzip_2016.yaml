@@ -1,0 +1,40 @@
+transform:
+  - step:
+    action: debug.LogExpression
+    expression: "'Starting codec csvzip_2016'"
+
+  - step: Remove header row
+    action: transform.filter.FilterLines
+    filter_list:
+      - line_number: 0
+        patterns:
+          - '^name,url.*$'
+
+  - step: Set file name
+    action: load.SetTableName
+    table_name: "2016"
+
+  - step: Set output schema
+    action: transform.schema.SetSchema
+    fields:
+      - name: Name
+        type: string
+      - name: URL
+        type: string
+      - name: Formed
+        type: string
+      - name: Street
+        type: string
+      - name: City
+        type: string
+      - name: State
+        type: string
+      - name: Zip
+        type: string
+
+  - step: Extract fields from CSV file
+    action: extract.formats.CSV.ReadRecords
+
+  - step: Save locally
+    action: load.OutputCSV
+    repository: ./outputs
