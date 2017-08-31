@@ -1,7 +1,11 @@
 transform:
   - step:
     action: debug.LogExpression
-    expression: "'Starting codec csvzip_2016'"
+    expression: "'Starting codec csvzip_2015'"
+
+  - step: Set file name
+    action: load.SetTableName
+    table_name: "2015"
 
   - step: Remove header row
     action: transform.filter.FilterLines
@@ -9,10 +13,6 @@ transform:
       - line_number: 0
         patterns:
           - '^name,url.*$'
-
-  - step: Set file name
-    action: load.SetTableName
-    table_name: "2016"
 
   - step: Set output schema
     action: transform.schema.SetSchema
@@ -37,4 +37,4 @@ transform:
 
   - step: Save locally
     action: load.OutputCSV
-    repository: ./outputs
+    repository: .
